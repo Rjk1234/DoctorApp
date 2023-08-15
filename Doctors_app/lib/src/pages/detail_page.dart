@@ -32,10 +32,8 @@ class _DetailPageState extends State<DetailPage> {
         BackButton(color: Theme.of(context).primaryColor),
         IconButton(
             icon: Icon(
-              model.isfavourite ?? false
-                  ? Icons.favorite
-                  : Icons.favorite_border,
-              color: model.isfavourite ?? false ? Colors.red : LightColor.grey,
+              model.isfavourite ? Icons.favorite : Icons.favorite_border,
+              color: model.isfavourite ? Colors.red : LightColor.grey,
             ),
             onPressed: () {
               setState(() {
@@ -166,9 +164,6 @@ class _DetailPageState extends State<DetailPage> {
                               () {},
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
                             Container(
                               height: 45,
                               width: 45,
@@ -182,9 +177,6 @@ class _DetailPageState extends State<DetailPage> {
                             ).ripple(
                               () {},
                               borderRadius: BorderRadius.circular(10),
-                            ),
-                            SizedBox(
-                              width: 10,
                             ),
                             TextButton(
                               style: TextButton.styleFrom(
@@ -202,7 +194,7 @@ class _DetailPageState extends State<DetailPage> {
                                 );
                               },
                               child: Text(
-                                "Make an appointment",
+                                "View Appointments",
                                 style: TextStyles.titleNormal.white,
                               ).p(10),
                             ),

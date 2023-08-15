@@ -6,12 +6,12 @@ import 'package:flutter_healthcare_app/src/theme/theme.dart';
 
 class ProgressWidget extends StatefulWidget {
   ProgressWidget(
-      { Key? key,
+      {Key? key,
       required this.value,
       this.totalValue = 100,
       required this.activeColor,
       required this.backgroundColor,
-      required this.title, 
+      required this.title,
       this.durationTime})
       : super(key: key);
   final double totalValue;
@@ -31,26 +31,25 @@ class _ProgressWidgetState extends State<ProgressWidget>
   late Color backgroundColor;
   @override
   void initState() {
-   
     progress = (widget.value * 100) / widget.totalValue;
     progress = (progress / 100) * 360;
     activeColor = widget.activeColor;
     backgroundColor = widget.backgroundColor;
 
-    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final dimenstion = (AppTheme.fullWidth(context) - 10) * .3;
+    // ignore: unnecessary_null_comparison
     if (activeColor == null) {
       activeColor = Theme.of(context).primaryColor;
     }
+    // ignore: unnecessary_null_comparison
     if (backgroundColor == null) {
       backgroundColor = Theme.of(context).disabledColor;
     }
-    final inCurve = ElasticOutCurve(0.38);
     return Container(
       height: dimenstion,
       width: dimenstion,
@@ -62,10 +61,9 @@ class _ProgressWidgetState extends State<ProgressWidget>
             alignment: Alignment.center,
             children: <Widget>[
               TweenAnimationBuilder<double>(
-                tween: Tween<double>(begin: 0, end : progress),
+                tween: Tween<double>(begin: 0, end: progress),
                 duration: Duration(milliseconds: widget.durationTime),
                 builder: (context, value, child) {
-                  // print(value);
                   return CustomPaint(
                     painter: ProgressPainter(
                       value,

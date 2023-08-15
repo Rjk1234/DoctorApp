@@ -1,56 +1,36 @@
 import 'dart:async';
 import 'dart:math' as math;
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_healthcare_app/src/theme/light_color.dart';
-
 import '../service/event_channel.dart';
 
-class LineChartPage extends StatefulWidget {
-  LineChartPage({Key? key}) : super(key: key);
+class HeartRatePage extends StatefulWidget {
+  HeartRatePage({Key? key}) : super(key: key);
 
   final Color sinColor = LightColor.lightBlue;
   final Color cosColor = LightColor.orange;
 
   @override
-  State<LineChartPage> createState() => _LineChartPageState();
+  State<HeartRatePage> createState() => _HeartRatePageState();
 }
 
-class _LineChartPageState extends State<LineChartPage> {
+class _HeartRatePageState extends State<HeartRatePage> {
   final limitCount = 100;
   final sinPoints = <FlSpot>[];
-  final cosPoints = <FlSpot>[];
   late StreamSubscription sub;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-  //     while (sinPoints.length > limitCount) {
-  //       sinPoints.removeAt(0);
-  //       cosPoints.removeAt(0);
-  //     }
-  //     setState(() {
-  //       sinPoints.add(FlSpot(xValue, math.sin(xValue)));
-  //       cosPoints.add(FlSpot(xValue, math.cos(xValue)));
-  //     });
-  //     xValue += step;
-  //   });
-  // }
   @override
   void initState() {
     super.initState();
     //  EventChannel stream reading
-    sub = EventChannelTutorial().messageStream.listen((event) {
+    sub = HeartRateEventChannel().hearRateStream.listen((event) {
       print(event);
       while (sinPoints.length > limitCount) {
         sinPoints.removeAt(0);
-        cosPoints.removeAt(0);
       }
       setState(() {
         sinPoints.add(FlSpot(event, math.cos(event)));
-        cosPoints.add(FlSpot(event, math.cos(event)));
       });
     });
   }
@@ -63,7 +43,7 @@ class _LineChartPageState extends State<LineChartPage> {
         title: Text('Hear Rate Monitor'),
       ),
       body: Container(
-        child: cosPoints.isNotEmpty
+        child: sinPoints.isNotEmpty
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -118,9 +98,7 @@ class _LineChartPageState extends State<LineChartPage> {
                   //     fontWeight: FontWeight.bold,
                   //   ),
                   // ),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  const SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -139,7 +117,7 @@ class _LineChartPageState extends State<LineChartPage> {
                           height: 250,
                           child: Center(
                             child: Container(
-                              height: 120,
+                              height: 130,
                               width: MediaQuery.of(context).size.width - 40,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 30.0),
@@ -242,9 +220,7 @@ class AppDimens {
   static const double menuIconSize = 32;
   static const double menuDocumentationIconSize = 44;
   static const double menuTextSize = 20;
-
   static const double chartBoxMinWidth = 350;
-
   static const double defaultRadius = 8;
   static const double chartSamplesSpace = 32.0;
   static const double chartSamplesMinWidth = 350;

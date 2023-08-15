@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 
-class EventChannelTutorial {
+class HeartRateEventChannel {
   static const MethodChannel _channel =
       const MethodChannel('heart_rate_event_channel');
 
-  static const EventChannel _randomNumberChannel =
+  static const EventChannel _hearRateChannel =
       const EventChannel('heart_rate_event_channel');
 
   static Future<String> get platformVersion async {
@@ -17,8 +17,8 @@ class EventChannelTutorial {
   //   return _randomNumberChannel.receiveBroadcastStream().cast();
   // }
 
-  Stream<double> get messageStream async* {
-    await for (double message in _randomNumberChannel
+  Stream<double> get hearRateStream async* {
+    await for (double message in _hearRateChannel
         .receiveBroadcastStream()
         .map((message) => message)) {
       yield message;

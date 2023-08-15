@@ -16,16 +16,19 @@ class Routes {
   static Route? onGenerateRoute(RouteSettings settings) {
     final List<String>? pathElements = settings.name?.split('/');
     if (pathElements == null) {
-       return null;
+      return null;
     }
     if (pathElements[0] != '' || pathElements.length == 1) {
       return null;
     }
     switch (pathElements[1]) {
       case "DetailPage":
-        return  CustomRoute(builder: (BuildContext context) => DetailPage(model: settings.arguments as DoctorModel,), settings: settings);
-        // CustomRoute<bool>(
-        //     builder: (BuildContext context) => DetailPage(model: settings.arguments,));
+        return CustomRoute(
+            builder: (BuildContext context) => DetailPage(
+                  model: settings.arguments as DoctorModel,
+                ),
+            settings: settings);
     }
+    return null;
   }
 }

@@ -166,7 +166,7 @@ class _CalendarPageState extends State<CalendarPage> {
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Row(
         children: [
-          Text('All Events ',
+          Text('All Events',
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold)),
@@ -175,22 +175,13 @@ class _CalendarPageState extends State<CalendarPage> {
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(LightColor.purple)),
-              onPressed: () {},
-              child: Text('Add')),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(LightColor.purple)),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EventViewPage()),
-                  );
-                },
-                child: Text('Day')),
-          )
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EventViewPage()),
+                );
+              },
+              child: Text('Day'))
         ],
       ),
     );
